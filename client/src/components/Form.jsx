@@ -1,14 +1,20 @@
-import React, {useState,useEffect} from 'react';
+import {useState} from 'react';
 import styles from '../components/Form.module.css';
 import ValidateForm from '../utils/validateForm';
 
-export default function Form() {
-
-    const [name,setName] = useState("");
-    const [email,setEmail] = useState("");
-    const [username,setUsername] = useState("");
-    const [phone,setPhone] = useState("");
-    const [error,setError] = useState(false);
+export default function Form({
+    name,
+    setName,
+    email,
+    setEmail,
+    username,
+    setUsername,
+    phone,
+    setPhone,
+    error,
+    setError,
+    submitHandler
+    }) {
 
     return (
     <div className={styles.container}>
@@ -18,26 +24,31 @@ export default function Form() {
             value={name}
             onChange={(e)=>setName(e.target.value)}
          />
+         {error?.name && <div className={styles.error}>Name is required</div>}
          <input 
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e)=>setEmail(e.target.value)}
          />
+         {error?.email && <div className={styles.error}>Valid Email is required</div>}
          <input 
             type="text"
             placeholder="UserName"
             value={username}
             onChange={(e)=>setUsername(e.target.value)}
          />
+         {error?.username && <div className={styles.error}>Username is required</div>}
          <input
             type="text"
             placeholder="phone Number"
             value={phone}
             onChange={(e)=>setPhone(e.target.value)}
          />
-         <button onClick={() => ValidateForm(name,email,username,phone)}>SIGNUP</button>
+          {error?.phone && <div className={styles.error}>Valid Phone Number is required</div>}
+
+         <button onClick={submitHandler}>SIGNUP</button>
 
     </div>
-  )
+  );
 }
